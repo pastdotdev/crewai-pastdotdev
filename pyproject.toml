@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "crewai-pastdotdev"
+dynamic = ["version"]
+description = "past dev for CrewAI: Ingest and Recall as crew memory and as agent tools."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "past.dev", email = "louis@past.dev" }]
+maintainers = [{ name = "past.dev", email = "louis@past.dev" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai>=1.14.6,<2",
+    "httpx>=0.27,<1",
+]
+keywords = ["crewai", "memory", "agents", "llm", "past dev", "recall"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.urls]
+Homepage = "https://past.dev"
+Documentation = "https://past.dev/docs/memory-api/quickstart"
+"API reference" = "https://past.dev/docs/memory-api/api-reference"
+Source = "https://github.com/pastdotdev/crewai-pastdotdev"
+
+[tool.hatch.version]
+path = "src/crewai_pastdotdev/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/crewai_pastdotdev"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "README.md", "LICENSE", "pyproject.toml"]
+exclude = ["DOCS_PR.md", "PUBLISHING.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["live: calls the real past dev API (skipped unless PAST_API_KEY is set)"]
